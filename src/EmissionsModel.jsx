@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Card, CardContent } from "@mui/material";
 import { Slider } from "@mui/material";
 import { Input } from "@mui/material";
-import { Button } from "@mui/material";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, Legend } from "recharts";
 
 const EmissionsModel = () => {

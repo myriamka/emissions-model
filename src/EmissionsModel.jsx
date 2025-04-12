@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import { Card, CardContent } from "@mui/material";
-import { Slider } from "@mui/material";
-import { Input } from "@mui/material";
+import { Card, CardContent, Slider, Input, TextField } from "@mui/material";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, Legend } from "recharts";
 
 const EmissionsModel = () => {
@@ -11,9 +9,9 @@ const EmissionsModel = () => {
   const [electrique, setElectrique] = useState(70); // %
   const [modeDoux, setModeDoux] = useState(20); // %
 
-  const emissionThermique = 500; // g CO2/livraison
-  const emissionElectrique = 50; // g CO2/livraison
-  const emissionModeDoux = 10; // g CO2/livraison
+  const [emissionThermique, setEmissionThermique] = useState(500); // g CO2/livraison
+  const [emissionElectrique, setEmissionElectrique] = useState(50); // g CO2/livraison
+  const [emissionModeDoux, setEmissionModeDoux] = useState(10); // g CO2/livraison
 
   const calculateEmissions = () => {
     const adjustedDeliveries = totalDeliveries * (1 - reductionDeliveries / 100);
@@ -91,9 +89,37 @@ const EmissionsModel = () => {
               step={1}
             />
           </div>
+
+          {/* Facteurs d'émission ajoutés */}
+          <h3>Facteurs d'émission (g CO₂ par livraison)</h3>
+          <div>
+            <TextField
+              label="Facteur Thermique"
+              type="number"
+              value={emissionThermique}
+              onChange={(e) => setEmissionThermique(Number(e.target.value))}
+              sx={{ margin: 1 }}
+            />
+            <TextField
+              label="Facteur Électrique"
+              type="number"
+              value={emissionElectrique}
+              onChange={(e) => setEmissionElectrique(Number(e.target.value))}
+              sx={{ margin: 1 }}
+            />
+            <TextField
+              label="Facteur Mode Doux"
+              type="number"
+              value={emissionModeDoux}
+              onChange={(e) => setEmissionModeDoux(Number(e.target.value))}
+              sx={{ margin: 1 }}
+            />
+          </div>
+
           <div>
             <h3>Emissions Totales: {results.totalEmissions.toFixed(2)} tonnes de CO2</h3>
           </div>
+
           <BarChart width={500} height={300} data={data}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="name" />
@@ -109,3 +135,4 @@ const EmissionsModel = () => {
 };
 
 export default EmissionsModel;
+
